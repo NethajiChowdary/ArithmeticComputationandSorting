@@ -8,6 +8,30 @@ arithmeticOp1=$((a+(b*c)))
 arithmeticOp2=$(((a*b)+c))
 arithmeticOp3=$((c+(a/b)))
 arithmeticOp4=$(((a%b)+c))
+
+function arraySortDescending() {
+	arrLength=${#resultarray[@]}
+	for (( i=0; i<$arrLength; i++ ))
+	do
+		min=$i
+		for (( j=i+1; j<$arrLength; j++ ))
+		do
+			arrayValue1=${resultarray[j]}
+			arrayValue2=${resultarray[min]}
+			if [ $arrayValue1 -gt $arrayValue2 ]
+			then
+				min=$j
+			fi
+		done
+		temp=${resultarray[i]}
+		resultarray[i]=${resultarray[min]}
+		resultarray[min]=$temp
+	done
+	echo "Sorted resultarray in Descending order: ${resultarray[@]}"
+}
+
+
+
 result[0]=$arithmeticOp1
 result[1]=$arithmeticOp2
 result[2]=$arithmeticOp3
@@ -19,3 +43,5 @@ do
 done
 
 echo "resultarray: ${resultarray[@]}"
+
+arraySortDescending
